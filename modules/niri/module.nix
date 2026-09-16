@@ -5,6 +5,8 @@
   ...
 }:
 let
+  kdlType = lib.types.serializableValueWith { typeName = "KDL"; };
+
   # implements kdl with niri semantic knowledge to convert the data-format
   inherit
     (rec {
@@ -127,11 +129,11 @@ in
   options = {
     settings = lib.mkOption {
       type = lib.types.submodule {
-        freeformType = lib.types.attrs;
+        freeformType = kdlType;
         options = {
           binds = lib.mkOption {
             default = { };
-            type = lib.types.attrs;
+            type = kdlType;
             description = "Bindings of niri";
             example = {
               "Mod+T" = {
@@ -151,7 +153,7 @@ in
           };
           layout = lib.mkOption {
             default = { };
-            type = lib.types.attrs;
+            type = kdlType;
             description = "Layout definitions";
             example = {
               focus-ring.off = null;
@@ -179,7 +181,7 @@ in
           };
           window-rules = lib.mkOption {
             default = [ ];
-            type = lib.types.listOf lib.types.attrs;
+            type = lib.types.listOf kdlType;
             description = "List of window rules";
             example = [
               {
@@ -192,7 +194,7 @@ in
           };
           layer-rules = lib.mkOption {
             default = [ ];
-            type = lib.types.listOf lib.types.attrs;
+            type = lib.types.listOf kdlType;
             description = "List of layer rules";
             example = [
               {
@@ -204,7 +206,7 @@ in
           };
           workspaces = lib.mkOption {
             default = { };
-            type = lib.types.attrsOf (lib.types.nullOr lib.types.anything);
+            type = lib.types.attrsOf (lib.types.nullOr kdlType);
             description = "Named workspace definitons";
             example = {
               "foo" = {
@@ -215,7 +217,7 @@ in
           };
           outputs = lib.mkOption {
             default = { };
-            type = lib.types.attrs;
+            type = kdlType;
             description = "Output configuration";
             example = {
               "DP-3" = {
